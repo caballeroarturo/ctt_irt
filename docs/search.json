@@ -1,0 +1,95 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Apuntes TCT-TRI",
+    "section": "",
+    "text": "Prefacio\nNotas sobre Teoría Clásica de los Test y Teoría de Respuesta al Ítem\nLas notas se hicieron con Quarto, Emacs, Rstudio y Miro.",
+    "crumbs": [
+      "Prefacio"
+    ]
+  },
+  {
+    "objectID": "tct.html",
+    "href": "tct.html",
+    "title": "Teoría Clásica de los Test",
+    "section": "",
+    "text": "Las notas o reportes de lectura provienen, principalmente, de los libros",
+    "crumbs": [
+      "Teoría Clásica de los Test"
+    ]
+  },
+  {
+    "objectID": "contenido/TCT01_distractores.html",
+    "href": "contenido/TCT01_distractores.html",
+    "title": "1  Análisis de distractores",
+    "section": "",
+    "text": "1.1 Análisis del ítem \\(X2001\\)\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados y \\(47\\) ítems; en el Apéndice, Sección 1.1, se describe como se creo este subconjunto de datos.\nComo se puede observar la primera columna es el \\(id\\) de los evaluados, seguida del \\(sexo\\) (masculino-femenino) y de las respuestas de los \\(47\\) ítems.\nLa respuestas a los ítems se encuentran desde la columna \\(3\\) hasta la columna \\(49\\), por lo que al ejecutar el análisis de distractores, usando la librería CTT de Willse (2008), tenemos que indicar la posición donde se encuentran los ítems (\\(3:49\\)).\nEl resultado del código distractorAnalysis() da para el primer ítem la siguiente tabla:\nComo se puede observar el resultado son tablas anidadas en un objeto lista, por lo que se cambiará todo a un \\(dataframe\\) y la columna \\(correct\\), que muestra un \\(*\\) en la opción de respuesta correcta, se modificará para que muestre un \\(1\\).\nEl dataframe luce de la siguiente forma:\nSe definirá la siguiente función para hacer las gráficas por ítem (en el caso de que se haya seleccionado el análisis por cuartiles):\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
+    "crumbs": [
+      "Teoría Clásica de los Test",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
+    ]
+  },
+  {
+    "objectID": "contenido/TCT01_distractores.html#análisis-del-ítem-x2004",
+    "href": "contenido/TCT01_distractores.html#análisis-del-ítem-x2004",
+    "title": "1  Análisis de distractores",
+    "section": "\n1.2 Análisis del ítem \\(X2004\\)\n",
+    "text": "1.2 Análisis del ítem \\(X2004\\)\n\n\nCódigoitem_n = \"X2004\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2004\n99\n0\n99\n561\n0.23\n-0.24\n-0.21\n\n\nX2004\nA\n0\nA\n433\n0.18\n-0.20\n-0.17\n\n\nX2004\nB\n0\nB\n196\n0.08\n-0.15\n-0.07\n\n\nX2004\nC\n0\nC\n263\n0.11\n-0.04\n-0.01\n\n\nX2004\nD\n1\nD\n939\n0.39\n0.32\n0.45\n\n\n\n\nCódigografica_distractores(item_n)\n\n\n\n\n\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The R Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
+    "crumbs": [
+      "Teoría Clásica de los Test",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
+    ]
+  },
+  {
+    "objectID": "TRI.html",
+    "href": "TRI.html",
+    "title": "Teoría de respuesta al ítem",
+    "section": "",
+    "text": "En construcción…",
+    "crumbs": [
+      "Teoría de respuesta al ítem"
+    ]
+  },
+  {
+    "objectID": "contenido/IRT01_Rasch.html",
+    "href": "contenido/IRT01_Rasch.html",
+    "title": "2  Teoría de respuesta al ítem",
+    "section": "",
+    "text": "2.1 Modelo de Rasch",
+    "crumbs": [
+      "Teoría de respuesta al ítem",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Teoría de respuesta al ítem</span>"
+    ]
+  },
+  {
+    "objectID": "apendice.html",
+    "href": "apendice.html",
+    "title": "Apéndice",
+    "section": "",
+    "text": "Preparando los datos\nLibrerías que se usarán:\nCódigopacman::p_load(dplyr, ShinyItemAnalysis)",
+    "crumbs": [
+      "Apéndice"
+    ]
+  },
+  {
+    "objectID": "apendice.html#preparadata",
+    "href": "apendice.html#preparadata",
+    "title": "Apéndice",
+    "section": "",
+    "text": "Datos para análisis de distractores\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados en una prueba de \\(100\\) preguntas de opción múltiple.\n\nCódigodata(dataMedicaltest, dataMedicalkey)\n\n\nSe seleccionan solo los ítems cuya respuesta sea una sola opción de las \\(4\\) presentadas.\n\nCódigoclave_respuesta &lt;- dataMedicalkey %&gt;% \n  mutate(item=names(dataMedicaltest[,1:100]),\n         opciones=nchar(as.character(key))) %&gt;% \n  filter(opciones==1) \n\ndmt &lt;- dataMedicaltest[c(\"gender\",clave_respuesta$item)] %&gt;% \n  mutate(id=paste0(\"ID\",sprintf(\"%04d\",row_number()))) %&gt;%\n  select(id,gender,clave_respuesta$item) %&gt;%\n  rename(sexo=gender)\n\nclave_respuesta &lt;- clave_respuesta %&gt;% select(key)\n\n\nSi se supone que cada evaluado solo podía seleccionar una opción de respuesta, las respuestas con combinaciones \\(AB, AC, DBA, etc\\) no serían plausibles; por lo que se dejarán como \\(NA\\).\n\nCódigoaux &lt;- unique(c(\"BA\",\"AB\",\"BD\",\"CA\",\"DB\",\"CB\",\"BC\",\"DC\",\"AC\",\"DA\",\"BCA\",\"CD\",\"A,D\",\"ACD\",\n             \"ADC\",\"CAB\",\"CBA\",\"BAC\",\"ABDC\",\"ADCB\",\"ACDB\",\"ABC\",\"BDAC\",\"ADBC\",\n             \"DAC\",\"DAB\",\"BAD\",\"DCBA\",\"ABCD\",\"BDCA\",\"BACD\",\"ACB\",\"ADB\",\"BCAD\",\n             \"ADB\",\"BCAD\",\"BCDA\",\"CABD\",\"CAD\",\"CADB\",\"CBAD\",\"CBDA\",\"CDA\",\"DACB\",\n             \"DBC\",\"DCA\",\"DCAB\",\"DCB\",\"ABD\",\"DBA\",\"DBAC\",\"DBCA\",\"DCB\",\"CDAB\",\"CDBA\",\n             \"BADC\",\"BDA\",\"BDC\",\"CDB\",\"BCD\",\"CBD\",\"DABC\",\"ACBD\",\"AD\"))\n\ndmt &lt;- dmt %&gt;% \n  mutate(across(3:49,~ replace(as.character(.), . %in% aux, \"99\"))) %&gt;%\n  mutate_at(3:49, ~replace(., is.na(.), \"99\"))\n\n\nEl extracto de datos seleccionado consta de 2,392 renglones y 49 columnas.\n\nCódigoopenxlsx::write.xlsx(dmt, file=\"contenido/datos/dmt.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nopenxlsx::write.xlsx(clave_respuesta, file=\"contenido/datos/dmt_key.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nrm(dataMedicaltest,dataMedicalkey,clave_respuesta,dmt,aux)\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.",
+    "crumbs": [
+      "Apéndice"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "Referencias",
+    "section": "",
+    "text": "Martinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
+    "crumbs": [
+      "Referencias"
+    ]
+  }
+]

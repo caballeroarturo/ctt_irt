@@ -1,0 +1,126 @@
+# Análisis de distractores {#sec-distractores}
+
+Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$ evaluados y $47$ ítems; en el Apéndice, @sec-dataMedical, se describe como se creo este subconjunto de datos.
+
+```{r libreriasDist}
+#| output: false
+#| 
+# si no tienes la librería pacman, ejecutar:
+# install.packages(pacman)
+# posteriormente puedes empezar continuar con el código
+
+pacman::p_load(CTT,ggplot2,dplyr,ggthemes,tidyr,ShinyItemAnalysis, purrr,tibble,knitr)
+
+dmt <- openxlsx::read.xlsx("datos/dmt.xlsx")
+dmt_key <- openxlsx::read.xlsx("datos/dmt_key.xlsx")
+```
+
+Como se puede observar la primera columna es el $id$ de los evaluados, seguida del $sexo$ (masculino-femenino) y de las respuestas de los $47$ ítems.
+
+```{r}
+head(dmt[,1:7],n=3)
+# Tipos de datos de la tabla dmt
+tibble(columna = names(dmt), tipo = sapply(dmt, class))
+```
+
+La respuestas a los ítems se encuentran desde la columna $3$ hasta la columna $49$, por lo que al ejecutar el análisis de distractores, usando la librería `CTT` de @willse2008a, tenemos que indicar la posición donde se encuentran los ítems ($3:49$).
+
+```{r}
+distractores <- distractorAnalysis(items = dmt[3:49], # columnas con respuestas a los ítems
+                                   key = dmt_key, # opción de respuesta correcta por ítem
+                                   digits = 2) # cantidad de décimales
+```
+
+El resultado del código `distractorAnalysis()` da para el primer ítem la siguiente tabla:
+
+```{r}
+cat("Análisis de distractores del primer ítem\n")
+cat("-----------------------------------------------\n")
+print(distractores[[1]]) 
+```
+
+Como se puede observar el resultado son tablas anidadas en un objeto lista, por lo que se cambiará todo a un $dataframe$ y la columna $correct$, que muestra un $*$ en la opción de respuesta correcta, se modificará para que muestre un $1$.
+
+```{r}
+# se pasa de lista a tabla
+
+distractores <- imap_dfr(
+  distractores,
+  ~ as.data.frame.matrix(.x) %>%
+      rownames_to_column("response") %>%
+      mutate(item = .y, .before = 1))
+
+# se reemplaza el * por un 1
+
+distractores <- distractores %>% mutate(correct = ifelse(correct == "*", 1, 0)) %>% as_tibble()
+```
+
+El dataframe luce de la siguiente forma:
+
+```{r}
+distractores
+```
+
+Se definirá la siguiente función para hacer las gráficas por ítem (en el caso de que se haya seleccionado el análisis por cuartiles):
+
+```{r}
+grafica_distractores <- function(item_graficar){
+  
+  df_plot <- distractores %>%
+    filter(item == item_graficar) %>%
+    pivot_longer(cols = c(lower, mid50, mid75, upper),
+                 names_to = "cuartil", values_to = "porcentaje") %>%
+    mutate(
+      cuartil = factor(cuartil, levels = c("lower", "mid50", "mid75", "upper"),
+                       labels = c("Q1 (Bajo)", "Q2 (Medio-Bajo)", "Q3 (Medio-Alto)", "Q4 (Alto)")),
+      es_correcta = ifelse(correct == 1, "Respuesta correcta", "Distractor"),
+      response = factor(response))
+  
+  g <- ggplot(df_plot, aes(x = cuartil, y = porcentaje, group = response, 
+                           color = response, linetype = es_correcta)) +
+    geom_line(aes(size = es_correcta)) + geom_point(size = 3) +
+    scale_size_manual(values = c("Respuesta correcta" = 1.5, "Distractor" = 0.8)) +
+    scale_linetype_manual(values = c("Respuesta correcta" = "solid", "Distractor" = "dashed")) +
+    scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, max(df_plot$porcentaje))) +
+    scale_color_brewer(palette = "Set1") + 
+    labs(
+      title = paste("Porcentaje de respuestas \n por grupo de habilidad (TCT) del item", item_graficar),
+      x = "Quartiles",
+      y = "Porcentaje de Elección",
+      color = "Opción de Respuesta",
+      linetype = "Tipo de Opción",
+      size = "Tipo de Opción"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+      panel.grid.minor = element_blank(),
+      legend.position = "bottom",
+      legend.box = "vertical",
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 10)
+    )
+  
+  return(g)
+}
+```
+
+## Análisis del ítem $X2001$
+
+```{r}
+
+item_n = "X2001"
+#---
+distractores[,1:8] %>% filter(item==item_n) %>% kable(align = rep("c", 8))
+grafica_distractores(item_n)
+```
+
+## Análisis del ítem $X2004$
+
+```{r}
+
+item_n = "X2004"
+#---
+distractores[,1:8] %>% filter(item==item_n) %>% kable(align = rep("c", 8))
+grafica_distractores(item_n)
+```

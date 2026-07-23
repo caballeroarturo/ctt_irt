@@ -1,0 +1,9 @@
+---
+bibliography: references.bib
+---
+
+# Prefacio {.unnumbered}
+
+Notas sobre Teoría Clásica de los Test y Teoría de Respuesta al Ítem
+
+Las notas se hicieron con [Quarto](https://quarto.org/docs/books), [Emacs](https://www.gnu.org/software/emacs/), [Rstudio](https://posit.co/download/rstudio-desktop/) y [Miro](https://miro.com/es/).

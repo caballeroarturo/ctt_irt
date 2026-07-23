@@ -1,0 +1,63 @@
+# Apéndice {#apendice .unnumbered}
+
+## Preparando los datos {#preparadata}
+
+Librerías que se usarán:
+
+```{r}
+pacman::p_load(dplyr, ShinyItemAnalysis)
+```
+
+### Datos para análisis de distractores {#sec-dataMedical}
+
+Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$ evaluados en una prueba de $100$ preguntas de opción múltiple.
+
+```{r}
+data(dataMedicaltest, dataMedicalkey)
+```
+
+Se seleccionan solo los ítems cuya respuesta sea una sola opción de las $4$ presentadas.
+
+```{r}
+clave_respuesta <- dataMedicalkey %>% 
+  mutate(item=names(dataMedicaltest[,1:100]),
+         opciones=nchar(as.character(key))) %>% 
+  filter(opciones==1) 
+
+dmt <- dataMedicaltest[c("gender",clave_respuesta$item)] %>% 
+  mutate(id=paste0("ID",sprintf("%04d",row_number()))) %>%
+  select(id,gender,clave_respuesta$item) %>%
+  rename(sexo=gender)
+
+clave_respuesta <- clave_respuesta %>% select(key)
+
+```
+
+Si se supone que cada evaluado solo podía seleccionar una opción de respuesta, las respuestas con combinaciones $AB, AC, DBA, etc$ no serían plausibles; por lo que se dejarán como $NA$.
+
+```{r}
+aux <- unique(c("BA","AB","BD","CA","DB","CB","BC","DC","AC","DA","BCA","CD","A,D","ACD",
+             "ADC","CAB","CBA","BAC","ABDC","ADCB","ACDB","ABC","BDAC","ADBC",
+             "DAC","DAB","BAD","DCBA","ABCD","BDCA","BACD","ACB","ADB","BCAD",
+             "ADB","BCAD","BCDA","CABD","CAD","CADB","CBAD","CBDA","CDA","DACB",
+             "DBC","DCA","DCAB","DCB","ABD","DBA","DBAC","DBCA","DCB","CDAB","CDBA",
+             "BADC","BDA","BDC","CDB","BCD","CBD","DABC","ACBD","AD"))
+
+dmt <- dmt %>% 
+  mutate(across(3:49,~ replace(as.character(.), . %in% aux, "99"))) %>%
+  mutate_at(3:49, ~replace(., is.na(.), "99"))
+```
+
+El extracto de datos seleccionado consta de `r prettyNum(nrow(dmt), big.mark = ",")` renglones y `r dim(dmt)[2]` columnas.
+
+```{r}
+openxlsx::write.xlsx(dmt, file="contenido/datos/dmt.xlsx",
+                     colNames = TRUE, rowNames = FALSE,
+                     firstRow =TRUE, halign = "CENTER")
+
+openxlsx::write.xlsx(clave_respuesta, file="contenido/datos/dmt_key.xlsx",
+                     colNames = TRUE, rowNames = FALSE,
+                     firstRow =TRUE, halign = "CENTER")
+
+rm(dataMedicaltest,dataMedicalkey,clave_respuesta,dmt,aux)
+```
