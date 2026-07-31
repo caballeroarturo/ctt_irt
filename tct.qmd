@@ -1,6 +1,6 @@
 # Teoría Clásica de los Test {#tct1 .unnumbered}
 
-La Teoría Clásica de los Tests (TCT) es el modelo psicométrico más conocido y de mayor tradición utilizado en la construcción, análisis y evaluación de pruebas psicológicas y educativas. Sus antecedentes se remontan a principios del siglo XX con los trabajos pioneros del psicólogo británico Charles Spearman, y fue consolidada de manera formal por teóricos como Gulliksen hacia 1950.
+La Teoría Clásica de los Tests (TCT) es el modelo psicométrico más conocido y de mayor tradición utilizado en la construcción, análisis y evaluación de pruebas psicológicas y educativas. Sus antecedentes se remontan a principios del siglo XX con los trabajos pioneros del psicólogo británico Charles Spearman, y fue consolidada de manera formal por teóricos como Gulliksen hacia 1950 .
 
 ## El Modelo Lineal Clásico
 
