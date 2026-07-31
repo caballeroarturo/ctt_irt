@@ -1,3 +1,34 @@
 # Teoría Clásica de los Test {#tct1 .unnumbered}
 
-Las notas o reportes de lectura provienen, principalmente, de los libros
+La Teoría Clásica de los Tests (TCT) es el modelo psicométrico más conocido y de mayor tradición utilizado en la construcción, análisis y evaluación de pruebas psicológicas y educativas. Sus antecedentes se remontan a principios del siglo XX con los trabajos pioneros del psicólogo británico Charles Spearman, y fue consolidada de manera formal por teóricos como Gulliksen hacia 1950.
+
+## El Modelo Lineal Clásico
+
+El eje conceptual de esta teoría es sumamente intuitivo y se basa en un modelo lineal. La TCT postula que la puntuación observada o empírica que obtiene un individuo al resolver una prueba (representada como $X$ u $O$) no es exacta, sino que está compuesta por dos partes: su puntuación verdadera ($V$ o $T$, que es la magnitud real del atributo que posee) y un error de medición aleatorio ($e$). Por lo tanto, la ecuación fundamental de la teoría es puntaje Observado = Puntaje Verdadero + Error:
+
+$$ X = V + e$$ El objetivo central de la TCT es lograr aislar o estimar el grado de ese error para garantizar que las mediciones sean precisas. Dado que con una sola aplicación del test es imposible separar matemáticamente el puntaje verdadero del error, Spearman añadió tres supuestos fundamentales para hacer viable el modelo: - La puntuación verdadera es el promedio esperado ($V=E(X)$): si fuera posible aplicar el mismo test infinitas veces a la misma persona (suponiendo que no recuerda las respuestas anteriores ni se fatiga), los errores tenderían a cancelarse y el promedio de todas esas puntuaciones observadas sería su verdadera puntuación. - Independencia entre el nivel de habilidad y el error ($r(v,e)=0$): El tamaño del error de medición no tiene relación sistemática con la verdadera habilidad de la persona. Puede haber errores grandes o pequeños tanto en personas con puntuaciones verdaderas altas como bajas. - Independencia de los errores entre tests ($r(e_j, e_k)=0$): Los errores de medida cometidos en una prueba o en una ocasión no están relacionados con los errores cometidos en otra prueba distinta.
+
+```{r}
+#| output: false
+pacman::p_load(CTT, readxl)
+#
+# dirección de la carpeta en la que se encuentrán los datos
+path <- "contenido/datos/"
+#
+dmt <- openxlsx::read.xlsx(paste0(path,"dmt.xlsx"))
+dmt_key <- openxlsx::read.xlsx(paste0(path,"dmt_key.xlsx"))
+```
+
+Resultados
+
+```{r}
+dmt_p <- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)
+#
+dmt_p <- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))
+```
+
+Guardar los resultados en formato Excel, usando la librería `openxlsx`.
+
+```{r}
+openxlsx::write.xlsx(dmt_p, paste0(path,"dmt_p.xlsx"))
+```

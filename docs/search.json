@@ -10,21 +10,11 @@
     ]
   },
   {
-    "objectID": "tct.html",
-    "href": "tct.html",
-    "title": "Teoría Clásica de los Test",
-    "section": "",
-    "text": "Las notas o reportes de lectura provienen, principalmente, de los libros",
-    "crumbs": [
-      "Teoría Clásica de los Test"
-    ]
-  },
-  {
     "objectID": "contenido/TCT01_distractores.html",
     "href": "contenido/TCT01_distractores.html",
     "title": "1  Análisis de distractores",
     "section": "",
-    "text": "1.1 Análisis del ítem \\(X2001\\)\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados y \\(47\\) ítems; en el Apéndice, Sección 1.1, se describe como se creo este subconjunto de datos.\nComo se puede observar la primera columna es el \\(id\\) de los evaluados, seguida del \\(sexo\\) (masculino-femenino) y de las respuestas de los \\(47\\) ítems.\nLa respuestas a los ítems se encuentran desde la columna \\(3\\) hasta la columna \\(49\\), por lo que al ejecutar el análisis de distractores, usando la librería CTT de Willse (2008), tenemos que indicar la posición donde se encuentran los ítems (\\(3:49\\)).\nEl resultado del código distractorAnalysis() da para el primer ítem la siguiente tabla:\nComo se puede observar el resultado son tablas anidadas en un objeto lista, por lo que se cambiará todo a un \\(dataframe\\) y la columna \\(correct\\), que muestra un \\(*\\) en la opción de respuesta correcta, se modificará para que muestre un \\(1\\).\nEl dataframe luce de la siguiente forma:\nSe definirá la siguiente función para hacer las gráficas por ítem (en el caso de que se haya seleccionado el análisis por cuartiles):\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
+    "text": "1.1 Análisis del ítem \\(X2001\\)\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
     "crumbs": [
       "Teoría Clásica de los Test",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
@@ -39,16 +29,6 @@
     "crumbs": [
       "Teoría Clásica de los Test",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
-    ]
-  },
-  {
-    "objectID": "TRI.html",
-    "href": "TRI.html",
-    "title": "Teoría de respuesta al ítem",
-    "section": "",
-    "text": "En construcción…",
-    "crumbs": [
-      "Teoría de respuesta al ítem"
     ]
   },
   {
@@ -90,6 +70,26 @@
     "text": "Martinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
     "crumbs": [
       "Referencias"
+    ]
+  },
+  {
+    "objectID": "TRI.html",
+    "href": "TRI.html",
+    "title": "Teoría de respuesta al ítem",
+    "section": "",
+    "text": "En construcción…",
+    "crumbs": [
+      "Teoría de respuesta al ítem"
+    ]
+  },
+  {
+    "objectID": "tct.html",
+    "href": "tct.html",
+    "title": "Teoría Clásica de los Test",
+    "section": "",
+    "text": "Códigopacman::p_load(CTT, readxl)\n\npath &lt;- \"contenido/datos/\"\n#\ndmt &lt;- openxlsx::read.xlsx(paste0(path,\"dmt.xlsx\"))\ndmt_key &lt;- openxlsx::read.xlsx(paste0(path,\"dmt_key.xlsx\"))\n\n\nResultados\n\nCódigodmt_p &lt;- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)\n#\ndmt_p &lt;- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))\n\n\ns\n\nCódigoopenxlsx::write.xlsx(dmt_p, paste0(path,\"dmt_p.xlsx\"))",
+    "crumbs": [
+      "Teoría Clásica de los Test"
     ]
   }
 ]
