@@ -1,3 +1,65 @@
-# Teoría de respuesta al ítem
+# Modelo de Rasch
 
-## Modelo de Rasch
+Las ibrerías que se usarán son: TAM @robitzsch2013, mirt @chalmers2011 y WrigthMap @torresirribarra2014a, los datos serán nuevamente los obtenidos en el Apéndice, @sec-dataMedical, partir de la prueba de admisión a la facultad de medicina (`dataMedicaltest`):
+
+```{r libreriasIRT}
+#| output: false
+pacman::p_load(ggplot2,dplyr,TAM,WrightMap,mirt,knitr,tibble)
+#
+dmt_p <- openxlsx::read.xlsx("datos/dmt_p.xlsx")
+```
+
+## Modelo de Rasch usando la librería mirt
+
+```{r}
+rasch_mirt <- mirt(data = dmt_p[4:50], 
+                     model = 1, 
+                     itemtype = "Rasch", 
+                     verbose = FALSE)
+```
+
+En el objeto `rasch_mirt` se alojan los resultados del modelo, para extraer la tabla de parámetros se usa el siguiente código:
+
+```{r}
+mirt_par <- coef(rasch_mirt, IRTpars = TRUE, simplify = TRUE)
+temp <- mirt_par$items
+
+mirt_par <- temp %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "item") %>%
+  select(-g,-u) %>% as_tibble()
+
+rm(temp)
+
+head(mirt_par) %>% kable(align = rep("c", 2))
+```
+
+## Modelo de Rasch usando la librería TAM
+
+```{r, echo=TRUE,results=FALSE}
+library(TAM)
+#
+modelo <- tam.mml(resp = dmt_p[4:50])
+modelo$EAP.rel
+```
+
+```{r}
+tam_par <- modelo$xsi %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "Item") %>%
+  as_tibble()
+
+names(tam_par) <- c("item","b","se")
+
+head(tam_par) %>% kable(align = rep("c", 3))
+```
+
+Guardar los datos en excel
+
+```{r}
+openxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), "datos/dmt_rasch.xlsx")
+```
+
+
+
+

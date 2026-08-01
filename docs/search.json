@@ -14,7 +14,7 @@
     "href": "contenido/TCT01_distractores.html",
     "title": "1  Análisis de distractores",
     "section": "",
-    "text": "1.1 Análisis del ítem \\(X2001\\)\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
+    "text": "1.1 Análisis del ítem \\(X2001\\)\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% \n  filter(item==item_n) %&gt;% \n  kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
     "crumbs": [
       "Teoría Clásica de los Test",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
@@ -34,12 +34,23 @@
   {
     "objectID": "contenido/IRT01_Rasch.html",
     "href": "contenido/IRT01_Rasch.html",
-    "title": "2  Teoría de respuesta al ítem",
+    "title": "\n2  Modelo de Rasch\n",
     "section": "",
-    "text": "2.1 Modelo de Rasch",
+    "text": "2.1 Modelo de Rasch usando la librería mirt\nCódigorasch_mirt &lt;- mirt(data = dmt_p[4:50], \n                     model = 1, \n                     itemtype = \"Rasch\", \n                     verbose = FALSE)\nEn el objeto rasch_mirt se alojan los resultados del modelo, para extraer la tabla de parámetros se usa el siguiente código:\nCódigomirt_par &lt;- coef(rasch_mirt, IRTpars = TRUE, simplify = TRUE)\ntemp &lt;- mirt_par$items\n\nmirt_par &lt;- temp %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"item\") %&gt;%\n  select(-g,-u) %&gt;% as_tibble()\n\nrm(temp)\n\nhead(mirt_par) %&gt;% kable(align = rep(\"c\", 2))\n\n\n\nitem\na\nb\n\n\n\nX2001\n1\n0.9005876\n\n\nX2004\n1\n0.5167991\n\n\nX2005\n1\n0.0120417\n\n\nX2006\n1\n-0.7318071\n\n\nX2007\n1\n-1.5031479\n\n\nX2008\n1\n0.2336459",
     "crumbs": [
       "Teoría de respuesta al ítem",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Teoría de respuesta al ítem</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
+    ]
+  },
+  {
+    "objectID": "contenido/IRT01_Rasch.html#modelo-de-rasch-usando-la-librería-tam",
+    "href": "contenido/IRT01_Rasch.html#modelo-de-rasch-usando-la-librería-tam",
+    "title": "\n2  Modelo de Rasch\n",
+    "section": "\n2.2 Modelo de Rasch usando la librería TAM",
+    "text": "2.2 Modelo de Rasch usando la librería TAM\n\nCódigolibrary(TAM)\n#\nmodelo &lt;- tam.mml(resp = dmt_p[4:50])\nmodelo$EAP.rel\n\n\n\nCódigotam_par &lt;- modelo$xsi %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"Item\") %&gt;%\n  as_tibble()\n\nnames(tam_par) &lt;- c(\"item\",\"b\",\"se\")\n\nhead(tam_par) %&gt;% kable(align = rep(\"c\", 3))\n\n\n\nitem\nb\nse\n\n\n\nX2001\n0.9020510\n0.0475171\n\n\nX2004\n0.5182521\n0.0455597\n\n\nX2005\n0.0134739\n0.0446136\n\n\nX2006\n-0.7304133\n0.0464759\n\n\nX2007\n-1.5017979\n0.0529298\n\n\nX2008\n0.2350880\n0.0448086\n\n\n\n\n\nGuardar los datos en excel\n\nCódigoopenxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), \"datos/dmt_rasch.xlsx\")\n\n\n\n\n\n\nChalmers, Phil. 2011. mirt: Multidimensional Item Response Theory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nRobitzsch, Alexander, Thomas Kiefer, y Margaret Wu. 2013. TAM: Test Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, y Rebecca Freund. 2014. WrightMap: IRT Item-Person Map with ’ConQuest’ Integration. The R Foundation, 2014. https://doi.org/10.32614/cran.package.wrightmap.",
+    "crumbs": [
+      "Teoría de respuesta al ítem",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
     ]
   },
   {
@@ -67,7 +78,7 @@
     "href": "references.html",
     "title": "Referencias",
     "section": "",
-    "text": "Martinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
+    "text": "Chalmers, Phil. 2011. Mirt: Multidimensional Item Response\nTheory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nMartinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nRobitzsch, Alexander, Thomas Kiefer, and Margaret Wu. 2013. TAM:\nTest Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, and Rebecca Freund. 2014. WrightMap: IRT\nItem-Person Map with ’ConQuest’ Integration. The R Foundation,\n2014. https://doi.org/10.32614/cran.package.wrightmap.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
     "crumbs": [
       "Referencias"
     ]
@@ -87,7 +98,7 @@
     "href": "tct.html",
     "title": "Teoría Clásica de los Test",
     "section": "",
-    "text": "Códigopacman::p_load(CTT, readxl)\n\npath &lt;- \"contenido/datos/\"\n#\ndmt &lt;- openxlsx::read.xlsx(paste0(path,\"dmt.xlsx\"))\ndmt_key &lt;- openxlsx::read.xlsx(paste0(path,\"dmt_key.xlsx\"))\n\n\nResultados\n\nCódigodmt_p &lt;- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)\n#\ndmt_p &lt;- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))\n\n\ns\n\nCódigoopenxlsx::write.xlsx(dmt_p, paste0(path,\"dmt_p.xlsx\"))",
+    "text": "El Modelo Lineal Clásico\nEl eje conceptual de esta teoría es sumamente intuitivo y se basa en un modelo lineal. La TCT postula que la puntuación observada o empírica que obtiene un individuo al resolver una prueba (representada como \\(X\\) u \\(O\\)) no es exacta, sino que está compuesta por dos partes: su puntuación verdadera (\\(V\\) o \\(T\\), que es la magnitud real del atributo que posee) y un error de medición aleatorio (\\(e\\)). Por lo tanto, la ecuación fundamental de la teoría es puntaje Observado = Puntaje Verdadero + Error:\n\\[ X = V + e\\] El objetivo central de la TCT es lograr aislar o estimar el grado de ese error para garantizar que las mediciones sean precisas. Dado que con una sola aplicación del test es imposible separar matemáticamente el puntaje verdadero del error, Spearman añadió tres supuestos fundamentales para hacer viable el modelo: - La puntuación verdadera es el promedio esperado (\\(V=E(X)\\)): si fuera posible aplicar el mismo test infinitas veces a la misma persona (suponiendo que no recuerda las respuestas anteriores ni se fatiga), los errores tenderían a cancelarse y el promedio de todas esas puntuaciones observadas sería su verdadera puntuación. - Independencia entre el nivel de habilidad y el error (\\(r(v,e)=0\\)): El tamaño del error de medición no tiene relación sistemática con la verdadera habilidad de la persona. Puede haber errores grandes o pequeños tanto en personas con puntuaciones verdaderas altas como bajas. - Independencia de los errores entre tests (\\(r(e_j, e_k)=0\\)): Los errores de medida cometidos en una prueba o en una ocasión no están relacionados con los errores cometidos en otra prueba distinta.\nCódigopacman::p_load(CTT, readxl)\n#\n# dirección de la carpeta en la que se encuentrán los datos\npath &lt;- \"contenido/datos/\"\n#\ndmt &lt;- openxlsx::read.xlsx(paste0(path,\"dmt.xlsx\"))\ndmt_key &lt;- openxlsx::read.xlsx(paste0(path,\"dmt_key.xlsx\"))\nResultados\nCódigodmt_p &lt;- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)\n#\ndmt_p &lt;- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))\nGuardar los resultados en formato Excel, usando la librería openxlsx.\nCódigoopenxlsx::write.xlsx(dmt_p, paste0(path,\"dmt_p.xlsx\"))",
     "crumbs": [
       "Teoría Clásica de los Test"
     ]

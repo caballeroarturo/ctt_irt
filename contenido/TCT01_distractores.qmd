@@ -111,7 +111,9 @@ grafica_distractores <- function(item_graficar){
 
 item_n = "X2001"
 #---
-distractores[,1:8] %>% filter(item==item_n) %>% kable(align = rep("c", 8))
+distractores[,1:8] %>% 
+  filter(item==item_n) %>% 
+  kable(align = rep("c", 8))
 grafica_distractores(item_n)
 ```
 

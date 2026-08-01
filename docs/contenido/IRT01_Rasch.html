@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.43">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Arturo Caballero">
 <meta name="description" content="Apuntes de teoría clásica de los test y teoría de respuesta al ítem.">
-
-<title>Apuntes TCT-TRI – 2&nbsp; Teoría de respuesta al ítem</title>
+<title>Apuntes TCT-TRI – 2&nbsp; Modelo de Rasch</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,8 +19,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
-
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
@@ -45,8 +94,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -72,39 +120,28 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Enviar",
     "search-label": "Buscar"
   }
-}</script>
-<style>html{ scroll-behavior: smooth; }</style>
-
-
+}</script><style>html{ scroll-behavior: smooth; }</style>
 <link rel="stylesheet" href="../custom.css">
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../TRI.html">Teoría de respuesta al ítem</a></li><li class="breadcrumb-item"><a href="../contenido/IRT01_Rasch.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Teoría de respuesta al ítem</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../TRI.html">Teoría de respuesta al ítem</a></li><li class="breadcrumb-item"><a href="../contenido/IRT01_Rasch.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Rasch</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
-      <img src="../Gemini_Generated_irt.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
+      <img src="../Gemini_Generated_irt.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Apuntes TCT-TRI</a> 
         <div class="sidebar-tools-main tools-wide">
@@ -113,20 +150,20 @@ ul.task-list li input[type="checkbox"] {
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
               <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo lector">
   <div class="quarto-reader-toggle-btn">
@@ -143,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prefacio</span></a>
@@ -157,15 +194,15 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../contenido/TCT01_distractores.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Análisis de distractores</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../TRI.html" class="sidebar-item-text sidebar-link">
@@ -174,15 +211,15 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../contenido/IRT01_Rasch.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Teoría de respuesta al ítem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Rasch</span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../apendice.html" class="sidebar-item-text sidebar-link">
@@ -196,25 +233,22 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Tabla de contenidos</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#modelo-de-rasch" id="toc-modelo-de-rasch" class="nav-link active" data-scroll-target="#modelo-de-rasch"><span class="header-section-number">2.1</span> Modelo de Rasch</a></li>
-  </ul>
-</nav>
+<li><a href="#modelo-de-rasch-usando-la-librer%C3%ADa-mirt" id="toc-modelo-de-rasch-usando-la-librería-mirt" class="nav-link active" data-scroll-target="#modelo-de-rasch-usando-la-librer%C3%ADa-mirt"><span class="header-section-number">2.1</span> Modelo de Rasch usando la librería mirt</a></li>
+  <li><a href="#modelo-de-rasch-usando-la-librer%C3%ADa-tam" id="toc-modelo-de-rasch-usando-la-librería-tam" class="nav-link" data-scroll-target="#modelo-de-rasch-usando-la-librer%C3%ADa-tam"><span class="header-section-number">2.2</span> Modelo de Rasch usando la librería TAM</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../TRI.html">Teoría de respuesta al ítem</a></li><li class="breadcrumb-item"><a href="../contenido/IRT01_Rasch.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Teoría de respuesta al ítem</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Teoría de respuesta al ítem</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../TRI.html">Teoría de respuesta al ítem</a></li><li class="breadcrumb-item"><a href="../contenido/IRT01_Rasch.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Rasch</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modelo de Rasch</span>
+</h1>
 </div>
 
 
@@ -228,17 +262,156 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
+</header><p>Las ibrerías que se usarán son: TAM <span class="citation" data-cites="robitzsch2013">Robitzsch, Kiefer, y Wu (<a href="../references.html#ref-robitzsch2013" role="doc-biblioref">2013</a>)</span>, mirt <span class="citation" data-cites="chalmers2011">Chalmers (<a href="../references.html#ref-chalmers2011" role="doc-biblioref">2011</a>)</span> y WrigthMap <span class="citation" data-cites="torresirribarra2014a">Torres Irribarra y Freund (<a href="../references.html#ref-torresirribarra2014a" role="doc-biblioref">2014</a>)</span>, los datos serán nuevamente los obtenidos en el Apéndice, <a href="../apendice.html#sec-dataMedical" class="quarto-xref"><span>Sección 1.1</span></a>, partir de la prueba de admisión a la facultad de medicina (<code>dataMedicaltest</code>):</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">ggplot2</span>,<span class="va">dplyr</span>,<span class="va">TAM</span>,<span class="va">WrightMap</span>,<span class="va">mirt</span>,<span class="va">knitr</span>,<span class="va">tibble</span><span class="op">)</span></span>
+<span><span class="co">#</span></span>
+<span><span class="va">dmt_p</span> <span class="op">&lt;-</span> <span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/read.xlsx.html">read.xlsx</a></span><span class="op">(</span><span class="st">"datos/dmt_p.xlsx"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="modelo-de-rasch-usando-la-librería-mirt" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="modelo-de-rasch-usando-la-librería-mirt">
+<span class="header-section-number">2.1</span> Modelo de Rasch usando la librería mirt</h2>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rasch_mirt</span> <span class="op">&lt;-</span> <span class="fu">mirt</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dmt_p</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span>, </span>
+<span>                     model <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>                     itemtype <span class="op">=</span> <span class="st">"Rasch"</span>, </span>
+<span>                     verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>En el objeto <code>rasch_mirt</code> se alojan los resultados del modelo, para extraer la tabla de parámetros se usa el siguiente código:</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mirt_par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">rasch_mirt</span>, IRTpars <span class="op">=</span> <span class="cn">TRUE</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="va">mirt_par</span><span class="op">$</span><span class="va">items</span></span>
+<span></span>
+<span><span class="va">mirt_par</span> <span class="op">&lt;-</span> <span class="va">temp</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"item"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">g</span>,<span class="op">-</span><span class="va">u</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mirt_par</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span>align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: center;">item</th>
+<th style="text-align: center;">a</th>
+<th style="text-align: center;">b</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">X2001</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9005876</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2004</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.5167991</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">X2005</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.0120417</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2006</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-0.7318071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">X2007</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">-1.5031479</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2008</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.2336459</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="modelo-de-rasch-usando-la-librería-tam" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="modelo-de-rasch-usando-la-librería-tam">
+<span class="header-section-number">2.2</span> Modelo de Rasch usando la librería TAM</h2>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.edmeasurementsurveys.com/TAM/Tutorials/">TAM</a></span><span class="op">)</span></span>
+<span><span class="co">#</span></span>
+<span><span class="va">modelo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TAM/man/tam.mml.html">tam.mml</a></span><span class="op">(</span>resp <span class="op">=</span> <span class="va">dmt_p</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">50</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">modelo</span><span class="op">$</span><span class="va">EAP.rel</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tam_par</span> <span class="op">&lt;-</span> <span class="va">modelo</span><span class="op">$</span><span class="va">xsi</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"Item"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tam_par</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item"</span>,<span class="st">"b"</span>,<span class="st">"se"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tam_par</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span>align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead><tr class="header">
+<th style="text-align: center;">item</th>
+<th style="text-align: center;">b</th>
+<th style="text-align: center;">se</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">X2001</td>
+<td style="text-align: center;">0.9020510</td>
+<td style="text-align: center;">0.0475171</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2004</td>
+<td style="text-align: center;">0.5182521</td>
+<td style="text-align: center;">0.0455597</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">X2005</td>
+<td style="text-align: center;">0.0134739</td>
+<td style="text-align: center;">0.0446136</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2006</td>
+<td style="text-align: center;">-0.7304133</td>
+<td style="text-align: center;">0.0464759</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">X2007</td>
+<td style="text-align: center;">-1.5017979</td>
+<td style="text-align: center;">0.0529298</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">X2008</td>
+<td style="text-align: center;">0.2350880</td>
+<td style="text-align: center;">0.0448086</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Guardar los datos en excel</p>
+<div class="cell">
+<details class="code-fold"><summary>Código</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/write.xlsx.html">write.xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tam<span class="op">=</span><span class="va">tam_par</span>,mirt<span class="op">=</span><span class="va">mirt_par</span><span class="op">)</span>, <span class="st">"datos/dmt_rasch.xlsx"</span><span class="op">)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 
 
-<section id="modelo-de-rasch" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="modelo-de-rasch"><span class="header-section-number">2.1</span> Modelo de Rasch</h2>
-
-
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-chalmers2011" class="csl-entry" role="listitem">
+Chalmers, Phil. 2011. <em>mirt: Multidimensional Item Response Theory</em>. The R Foundation, 2011. <a href="https://doi.org/10.32614/cran.package.mirt">https://doi.org/10.32614/cran.package.mirt</a>.
+</div>
+<div id="ref-robitzsch2013" class="csl-entry" role="listitem">
+Robitzsch, Alexander, Thomas Kiefer, y Margaret Wu. 2013. <em>TAM: Test Analysis Modules</em>. The R Foundation, 2013. <a href="https://doi.org/10.32614/cran.package.tam">https://doi.org/10.32614/cran.package.tam</a>.
+</div>
+<div id="ref-torresirribarra2014a" class="csl-entry" role="listitem">
+Torres Irribarra, David, y Rebecca Freund. 2014. <em>WrightMap: IRT Item-Person Map with ’ConQuest’ Integration</em>. The R Foundation, 2014. <a href="https://doi.org/10.32614/cran.package.wrightmap">https://doi.org/10.32614/cran.package.wrightmap</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -801,9 +974,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="../TRI.html" class="pagination-link" aria-label="Teoría de respuesta al ítem">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Teoría de respuesta al ítem</span>
       </a>          
@@ -815,8 +986,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Notas de <a href="https://caballeroarturo.github.io/cv/">Caballero</a>.</p>
 </div>   
@@ -828,8 +998,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
-
-
 
 
 <script src="../site_libs/quarto-html/zenscroll-min.js"></script>
