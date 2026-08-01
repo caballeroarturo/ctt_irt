@@ -1,6 +1,6 @@
 # Modelo de Rasch {#rasch1}
 
-Las librerías que se usarán son: `TAM` de @robitzsch2013, `mirt` de @chalmers2011 y `WrigthMap` de @torresirribarra2014a. La descripción de los datos que se usarán se encuentra en el Apéndice, @sec-dataMedical, estos provienen de la prueba de admisión a la facultad de medicina (`dataMedicaltest`).
+Las librerías que se usarán son: `TAM` de @robitzsch2013, `mirt` de @chalmers2011 y `WrigthMap` de @torresirribarra2014a. La descripción de los datos que se usarán se encuentra en el Apéndice (@sec-dataMedical), estos provienen de la prueba de admisión a la facultad de medicina (`dataMedicaltest`).
 
 ```{r libreriasIRT}
 #| output: false
@@ -30,8 +30,14 @@ mirt_par <- temp %>%
   select(-g,-u) %>% as_tibble()
 
 rm(temp)
+```
 
-head(mirt_par) %>% kable(align = rep("c", 2))
+El resultado de *mirt* nos da los datos del parámetro de discriminación $a$, sin embargo, como puede observarse este es la constante igual a $1$.
+
+```{r}
+head(mirt_par) %>% 
+  kable(align = rep("c", 2),
+        caption="IRT a un parámetro con mirt")
 ```
 
 ## Rasch con la librería TAM
@@ -40,8 +46,13 @@ head(mirt_par) %>% kable(align = rep("c", 2))
 library(TAM)
 #
 modelo <- tam.mml(resp = dmt_p[4:50])
-modelo$EAP.rel
 ```
+
+```{r}
+print(paste("EAP Reliability: ",round(modelo$EAP.rel,3)))
+```
+
+El resultado de *TAM* (`tam.mml()`) se encuentra en el objeto `modelo`, por lo que usaremos el siguiente código para pasarlos a una tabla:
 
 ```{r}
 tam_par <- modelo$xsi %>%
@@ -51,7 +62,9 @@ tam_par <- modelo$xsi %>%
 
 names(tam_par) <- c("item","b","se")
 
-head(tam_par) %>% kable(align = rep("c", 3))
+head(tam_par) %>% 
+  kable(align = rep("c", 3),
+        caption="IRT a un parámetro con TAM")
 ```
 
 Guardar los datos en excel
