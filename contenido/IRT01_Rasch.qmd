@@ -1,6 +1,6 @@
-# Modelo de Rasch
+# Modelo de Rasch {#rasch1}
 
-Las ibrerías que se usarán son: TAM @robitzsch2013, mirt @chalmers2011 y WrigthMap @torresirribarra2014a, los datos serán nuevamente los obtenidos en el Apéndice, @sec-dataMedical, partir de la prueba de admisión a la facultad de medicina (`dataMedicaltest`):
+Las librerías que se usarán son: `TAM` de @robitzsch2013, `mirt` de @chalmers2011 y `WrigthMap` de @torresirribarra2014a. La descripción de los datos que se usarán se encuentra en el Apéndice, @sec-dataMedical, estos provienen de la prueba de admisión a la facultad de medicina (`dataMedicaltest`).
 
 ```{r libreriasIRT}
 #| output: false
@@ -9,7 +9,7 @@ pacman::p_load(ggplot2,dplyr,TAM,WrightMap,mirt,knitr,tibble)
 dmt_p <- openxlsx::read.xlsx("datos/dmt_p.xlsx")
 ```
 
-## Modelo de Rasch usando la librería mirt
+## Rasch con la librería mirt
 
 ```{r}
 rasch_mirt <- mirt(data = dmt_p[4:50], 
@@ -34,7 +34,7 @@ rm(temp)
 head(mirt_par) %>% kable(align = rep("c", 2))
 ```
 
-## Modelo de Rasch usando la librería TAM
+## Rasch con la librería TAM
 
 ```{r, echo=TRUE,results=FALSE}
 library(TAM)
@@ -60,6 +60,4 @@ Guardar los datos en excel
 openxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), "datos/dmt_rasch.xlsx")
 ```
 
-
-
-
+## Rasch con Jamovi
