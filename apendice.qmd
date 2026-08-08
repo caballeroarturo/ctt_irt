@@ -1,14 +1,12 @@
 # Apéndice {#apendice .unnumbered}
 
-## Preparando los datos {#preparadata}
-
-Librerías que se usarán:
+Librerías que se usarán {#preparadata}:
 
 ```{r}
 pacman::p_load(dplyr, ShinyItemAnalysis)
 ```
 
-### Datos para análisis de distractores {#sec-dataMedical}
+## Datos para análisis de distractores {#sec-dataMedical}
 
 Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$ evaluados en una prueba de $100$ preguntas de opción múltiple.
 
@@ -60,4 +58,22 @@ openxlsx::write.xlsx(clave_respuesta, file="contenido/datos/dmt_key.xlsx",
                      firstRow =TRUE, halign = "CENTER")
 
 rm(dataMedicaltest,dataMedicalkey,clave_respuesta,dmt,aux)
+```
+
+## Datos para análisis de ítems politómicos
+
+```{r}
+df <- read.csv("https://raw.githubusercontent.com/danielbkatz/DBER_Rasch-data/master/data/hls_poly_scale.csv")
+
+df[, 1:16][df[, 1:16] == 3] <- 2
+#
+df <- tibble(df) %>%
+  mutate(id = paste0("ID", sprintf("%04d", seq_len(nrow(df))))) %>%
+  select(id, everything())
+  
+names(df) <- tolower(names(df))
+
+openxlsx::write.xlsx(df, file="contenido/datos/hls1.xlsx",
+                     colNames = TRUE, rowNames = FALSE,
+                     firstRow =TRUE, halign = "CENTER")
 ```

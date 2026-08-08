@@ -10,21 +10,11 @@
     ]
   },
   {
-    "objectID": "tct.html",
-    "href": "tct.html",
-    "title": "Teoría Clásica de los Test",
-    "section": "",
-    "text": "El Modelo Lineal Clásico\nLa Teoría Clásica de los Tests (TCT) es el modelo psicométrico más conocido y de mayor tradición utilizado en la construcción, análisis y evaluación de pruebas psicológicas y educativas. Sus antecedentes se remontan a principios del siglo XX con los trabajos pioneros del psicólogo británico Charles Spearman, y fue consolidada de manera formal por teóricos como Gulliksen hacia 1950 .\nEl eje conceptual de esta teoría es sumamente intuitivo y se basa en un modelo lineal. La TCT postula que la puntuación observada o empírica que obtiene un individuo al resolver una prueba (representada como \\(X\\) u \\(O\\)) no es exacta, sino que está compuesta por dos partes: su puntuación verdadera (\\(V\\) o \\(T\\), que es la magnitud real del atributo que posee) y un error de medición aleatorio (\\(e\\)). Por lo tanto, la ecuación fundamental de la teoría es puntaje Observado = Puntaje Verdadero + Error:\n\\[ X = V + e\\] El objetivo central de la TCT es lograr aislar o estimar el grado de ese error para garantizar que las mediciones sean precisas. Dado que con una sola aplicación del test es imposible separar matemáticamente el puntaje verdadero del error, Spearman añadió tres supuestos fundamentales para hacer viable el modelo: - La puntuación verdadera es el promedio esperado (\\(V=E(X)\\)): si fuera posible aplicar el mismo test infinitas veces a la misma persona (suponiendo que no recuerda las respuestas anteriores ni se fatiga), los errores tenderían a cancelarse y el promedio de todas esas puntuaciones observadas sería su verdadera puntuación. - Independencia entre el nivel de habilidad y el error (\\(r(v,e)=0\\)): El tamaño del error de medición no tiene relación sistemática con la verdadera habilidad de la persona. Puede haber errores grandes o pequeños tanto en personas con puntuaciones verdaderas altas como bajas. - Independencia de los errores entre tests (\\(r(e_j, e_k)=0\\)): Los errores de medida cometidos en una prueba o en una ocasión no están relacionados con los errores cometidos en otra prueba distinta.\nCódigopacman::p_load(CTT, readxl)\n#\n# dirección de la carpeta en la que se encuentrán los datos\npath &lt;- \"contenido/datos/\"\n#\ndmt &lt;- openxlsx::read.xlsx(paste0(path,\"dmt.xlsx\"))\ndmt_key &lt;- openxlsx::read.xlsx(paste0(path,\"dmt_key.xlsx\"))\nResultados\nCódigodmt_p &lt;- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)\n#\ndmt_p &lt;- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))\nGuardar los resultados en formato Excel, usando la librería openxlsx.\nCódigoopenxlsx::write.xlsx(dmt_p, paste0(path,\"dmt_p.xlsx\"))",
-    "crumbs": [
-      "Teoría Clásica de los Test"
-    ]
-  },
-  {
     "objectID": "contenido/TCT01_distractores.html",
     "href": "contenido/TCT01_distractores.html",
     "title": "1  Análisis de distractores",
     "section": "",
-    "text": "1.1 Análisis del ítem \\(X2001\\)\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados y \\(47\\) ítems; en el Apéndice, Sección 1.1, se describe como se creo este subconjunto de datos.\nComo se puede observar la primera columna es el \\(id\\) de los evaluados, seguida del \\(sexo\\) (masculino-femenino) y de las respuestas de los \\(47\\) ítems.\nLa respuestas a los ítems se encuentran desde la columna \\(3\\) hasta la columna \\(49\\), por lo que al ejecutar el análisis de distractores, usando la librería CTT de Willse (2008), tenemos que indicar la posición donde se encuentran los ítems (\\(3:49\\)).\nEl resultado del código distractorAnalysis() da para el primer ítem la siguiente tabla:\nComo se puede observar el resultado son tablas anidadas en un objeto lista, por lo que se cambiará todo a un \\(dataframe\\) y la columna \\(correct\\), que muestra un \\(*\\) en la opción de respuesta correcta, se modificará para que muestre un \\(1\\).\nEl dataframe luce de la siguiente forma:\nSe definirá la siguiente función para hacer las gráficas por ítem (en el caso de que se haya seleccionado el análisis por cuartiles):\nCódigoitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% \n  filter(item==item_n) %&gt;% \n  kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\nCódigografica_distractores(item_n)",
+    "text": "1.1 Análisis del ítem \\(X2001\\)\nCódigo\nitem_n = \"X2001\"\n#---\ndistractores[,1:8] %&gt;% \n  filter(item==item_n) %&gt;% \n  kable(align = rep(\"c\", 8))\n\n\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\n\nX2001\n99\n0\n99\n355\n0.15\n-0.14\n-0.08\n\n\nX2001\nA\n1\nA\n761\n0.32\n0.15\n0.24\n\n\nX2001\nB\n0\nB\n768\n0.32\n-0.09\n-0.05\n\n\nX2001\nC\n0\nC\n148\n0.06\n-0.19\n-0.10\n\n\nX2001\nD\n0\nD\n360\n0.15\n-0.05\n0.00\n\n\n\n\n\nCódigo\ngrafica_distractores(item_n)",
     "crumbs": [
       "Teoría Clásica de los Test",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
@@ -34,11 +24,74 @@
     "objectID": "contenido/TCT01_distractores.html#análisis-del-ítem-x2004",
     "href": "contenido/TCT01_distractores.html#análisis-del-ítem-x2004",
     "title": "1  Análisis de distractores",
-    "section": "\n1.2 Análisis del ítem \\(X2004\\)\n",
-    "text": "1.2 Análisis del ítem \\(X2004\\)\n\n\nCódigoitem_n = \"X2004\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\nX2004\n99\n0\n99\n561\n0.23\n-0.24\n-0.21\n\n\nX2004\nA\n0\nA\n433\n0.18\n-0.20\n-0.17\n\n\nX2004\nB\n0\nB\n196\n0.08\n-0.15\n-0.07\n\n\nX2004\nC\n0\nC\n263\n0.11\n-0.04\n-0.01\n\n\nX2004\nD\n1\nD\n939\n0.39\n0.32\n0.45\n\n\n\n\nCódigografica_distractores(item_n)\n\n\n\n\n\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The R Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
+    "section": "1.2 Análisis del ítem \\(X2004\\)",
+    "text": "1.2 Análisis del ítem \\(X2004\\)\n\n\nCódigo\nitem_n = \"X2004\"\n#---\ndistractores[,1:8] %&gt;% filter(item==item_n) %&gt;% kable(align = rep(\"c\", 8))\n\n\n\n\n\nitem\nresponse\ncorrect\nkey\nn\nrspP\npbis\ndiscrim\n\n\n\n\nX2004\n99\n0\n99\n561\n0.23\n-0.24\n-0.21\n\n\nX2004\nA\n0\nA\n433\n0.18\n-0.20\n-0.17\n\n\nX2004\nB\n0\nB\n196\n0.08\n-0.15\n-0.07\n\n\nX2004\nC\n0\nC\n263\n0.11\n-0.04\n-0.01\n\n\nX2004\nD\n1\nD\n939\n0.39\n0.32\n0.45\n\n\n\n\n\nCódigo\ngrafica_distractores(item_n)\n\n\n\n\n\n\n\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The R Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
     "crumbs": [
       "Teoría Clásica de los Test",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Análisis de distractores</span>"
+    ]
+  },
+  {
+    "objectID": "contenido/IRT01_Rasch.html",
+    "href": "contenido/IRT01_Rasch.html",
+    "title": "2  Modelo de Rasch",
+    "section": "",
+    "text": "2.1 Rasch con la librería mirt\nCódigo\nrasch_mirt &lt;- mirt(data = dmt_p[4:50], \n                     model = 1, \n                     itemtype = \"Rasch\", \n                     verbose = FALSE)\nEn el objeto rasch_mirt se alojan los resultados del modelo, para extraer la tabla de parámetros se usa el siguiente código:\nCódigo\nmirt_par &lt;- coef(rasch_mirt, IRTpars = TRUE, simplify = TRUE)\ntemp &lt;- mirt_par$items\n\nmirt_par &lt;- temp %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"item\") %&gt;%\n  select(-g,-u) %&gt;% as_tibble()\n\nrm(temp)\nEl resultado de mirt nos da los datos del parámetro de discriminación \\(a\\), sin embargo, como puede observarse este es la constante igual a \\(1\\).\nCódigo\nhead(mirt_par) %&gt;% \n  kable(align = rep(\"c\", 2),\n        caption=\"IRT a un parámetro con mirt\")\n\n\n\nIRT a un parámetro con mirt\n\n\nitem\na\nb\n\n\n\n\nX2001\n1\n0.9005876\n\n\nX2004\n1\n0.5167991\n\n\nX2005\n1\n0.0120417\n\n\nX2006\n1\n-0.7318071\n\n\nX2007\n1\n-1.5031479\n\n\nX2008\n1\n0.2336459",
+    "crumbs": [
+      "Teoría de respuesta al ítem",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
+    ]
+  },
+  {
+    "objectID": "contenido/IRT01_Rasch.html#rasch-con-la-librería-tam",
+    "href": "contenido/IRT01_Rasch.html#rasch-con-la-librería-tam",
+    "title": "2  Modelo de Rasch",
+    "section": "2.2 Rasch con la librería TAM",
+    "text": "2.2 Rasch con la librería TAM\n\n\nCódigo\nlibrary(TAM)\n#\nmodelo &lt;- tam.mml(resp = dmt_p[4:50])\n\n\n\n\nCódigo\nprint(paste(\"EAP Reliability: \",round(modelo$EAP.rel,3)))\n\n\n[1] \"EAP Reliability:  0.88\"\n\n\nEl resultado de TAM (tam.mml()) se encuentra en el objeto modelo, por lo que usaremos el siguiente código para pasarlos a una tabla:\n\n\nCódigo\ntam_par &lt;- modelo$xsi %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"Item\") %&gt;%\n  as_tibble()\n\nnames(tam_par) &lt;- c(\"item\",\"b\",\"se\")\n\nhead(tam_par) %&gt;% \n  kable(align = rep(\"c\", 3),\n        caption=\"IRT a un parámetro con TAM\")\n\n\n\nIRT a un parámetro con TAM\n\n\nitem\nb\nse\n\n\n\n\nX2001\n0.9020510\n0.0475171\n\n\nX2004\n0.5182521\n0.0455597\n\n\nX2005\n0.0134739\n0.0446136\n\n\nX2006\n-0.7304133\n0.0464759\n\n\nX2007\n-1.5017979\n0.0529298\n\n\nX2008\n0.2350880\n0.0448086\n\n\n\n\n\nGuardar los datos en excel\n\n\nCódigo\nopenxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), \"datos/dmt_rasch.xlsx\")",
+    "crumbs": [
+      "Teoría de respuesta al ítem",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
+    ]
+  },
+  {
+    "objectID": "contenido/IRT01_Rasch.html#rasch-con-jamovi",
+    "href": "contenido/IRT01_Rasch.html#rasch-con-jamovi",
+    "title": "2  Modelo de Rasch",
+    "section": "2.3 Rasch con Jamovi",
+    "text": "2.3 Rasch con Jamovi\n\n\n\n\nChalmers, Phil. 2011. mirt: Multidimensional Item Response Theory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nRobitzsch, Alexander, Thomas Kiefer, y Margaret Wu. 2013. TAM: Test Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, y Rebecca Freund. 2014. WrightMap: IRT Item-Person Map with ’ConQuest’ Integration. The R Foundation, 2014. https://doi.org/10.32614/cran.package.wrightmap.",
+    "crumbs": [
+      "Teoría de respuesta al ítem",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
+    ]
+  },
+  {
+    "objectID": "apendice.html",
+    "href": "apendice.html",
+    "title": "Apéndice",
+    "section": "",
+    "text": "Datos para análisis de distractores\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados en una prueba de \\(100\\) preguntas de opción múltiple.\nCódigo\ndata(dataMedicaltest, dataMedicalkey)\nSe seleccionan solo los ítems cuya respuesta sea una sola opción de las \\(4\\) presentadas.\nCódigo\nclave_respuesta &lt;- dataMedicalkey %&gt;% \n  mutate(item=names(dataMedicaltest[,1:100]),\n         opciones=nchar(as.character(key))) %&gt;% \n  filter(opciones==1) \n\ndmt &lt;- dataMedicaltest[c(\"gender\",clave_respuesta$item)] %&gt;% \n  mutate(id=paste0(\"ID\",sprintf(\"%04d\",row_number()))) %&gt;%\n  select(id,gender,clave_respuesta$item) %&gt;%\n  rename(sexo=gender)\n\nclave_respuesta &lt;- clave_respuesta %&gt;% select(key)\nSi se supone que cada evaluado solo podía seleccionar una opción de respuesta, las respuestas con combinaciones \\(AB, AC, DBA, etc\\) no serían plausibles; por lo que se dejarán como \\(NA\\).\nCódigo\naux &lt;- unique(c(\"BA\",\"AB\",\"BD\",\"CA\",\"DB\",\"CB\",\"BC\",\"DC\",\"AC\",\"DA\",\"BCA\",\"CD\",\"A,D\",\"ACD\",\n             \"ADC\",\"CAB\",\"CBA\",\"BAC\",\"ABDC\",\"ADCB\",\"ACDB\",\"ABC\",\"BDAC\",\"ADBC\",\n             \"DAC\",\"DAB\",\"BAD\",\"DCBA\",\"ABCD\",\"BDCA\",\"BACD\",\"ACB\",\"ADB\",\"BCAD\",\n             \"ADB\",\"BCAD\",\"BCDA\",\"CABD\",\"CAD\",\"CADB\",\"CBAD\",\"CBDA\",\"CDA\",\"DACB\",\n             \"DBC\",\"DCA\",\"DCAB\",\"DCB\",\"ABD\",\"DBA\",\"DBAC\",\"DBCA\",\"DCB\",\"CDAB\",\"CDBA\",\n             \"BADC\",\"BDA\",\"BDC\",\"CDB\",\"BCD\",\"CBD\",\"DABC\",\"ACBD\",\"AD\"))\n\ndmt &lt;- dmt %&gt;% \n  mutate(across(3:49,~ replace(as.character(.), . %in% aux, \"99\"))) %&gt;%\n  mutate_at(3:49, ~replace(., is.na(.), \"99\"))\nEl extracto de datos seleccionado consta de 2,392 renglones y 49 columnas.\nCódigo\nopenxlsx::write.xlsx(dmt, file=\"contenido/datos/dmt.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nopenxlsx::write.xlsx(clave_respuesta, file=\"contenido/datos/dmt_key.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nrm(dataMedicaltest,dataMedicalkey,clave_respuesta,dmt,aux)",
+    "crumbs": [
+      "Apéndice"
+    ]
+  },
+  {
+    "objectID": "apendice.html#datos-para-análisis-de-ítems-politómicos",
+    "href": "apendice.html#datos-para-análisis-de-ítems-politómicos",
+    "title": "Apéndice",
+    "section": "Datos para análisis de ítems politómicos",
+    "text": "Datos para análisis de ítems politómicos\n\n\nCódigo\ndf &lt;- read.csv(\"https://raw.githubusercontent.com/danielbkatz/DBER_Rasch-data/master/data/hls_poly_scale.csv\")\n\ndf[, 1:16][df[, 1:16] == 3] &lt;- 2\n#\ndf &lt;- tibble(df) %&gt;%\n  mutate(id = paste0(\"ID\", sprintf(\"%04d\", seq_len(nrow(df))))) %&gt;%\n  select(id, everything())\n  \nnames(df) &lt;- tolower(names(df))\n\nopenxlsx::write.xlsx(df, file=\"contenido/datos/hls1.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.",
+    "crumbs": [
+      "Apéndice"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "Referencias",
+    "section": "",
+    "text": "Chalmers, Phil. 2011. Mirt: Multidimensional Item Response\nTheory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nMartinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nRobitzsch, Alexander, Thomas Kiefer, and Margaret Wu. 2013. TAM:\nTest Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, and Rebecca Freund. 2014. WrightMap: IRT\nItem-Person Map with ’ConQuest’ Integration. The R Foundation,\n2014. https://doi.org/10.32614/cran.package.wrightmap.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
+    "crumbs": [
+      "Referencias"
     ]
   },
   {
@@ -52,66 +105,13 @@
     ]
   },
   {
-    "objectID": "contenido/IRT01_Rasch.html",
-    "href": "contenido/IRT01_Rasch.html",
-    "title": "2  Modelo de Rasch",
+    "objectID": "tct.html",
+    "href": "tct.html",
+    "title": "Teoría Clásica de los Test",
     "section": "",
-    "text": "2.1 Rasch con la librería mirt\nLas librerías que se usarán son: TAM de Robitzsch, Kiefer, y Wu (2013), mirt de Chalmers (2011) y WrigthMap de Torres Irribarra y Freund (2014). La descripción de los datos que se usarán se encuentra en el Apéndice (Sección 1.1), estos provienen de la prueba de admisión a la facultad de medicina (dataMedicaltest).\nCódigorasch_mirt &lt;- mirt(data = dmt_p[4:50], \n                     model = 1, \n                     itemtype = \"Rasch\", \n                     verbose = FALSE)\nEn el objeto rasch_mirt se alojan los resultados del modelo, para extraer la tabla de parámetros se usa el siguiente código:\nCódigomirt_par &lt;- coef(rasch_mirt, IRTpars = TRUE, simplify = TRUE)\ntemp &lt;- mirt_par$items\n\nmirt_par &lt;- temp %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"item\") %&gt;%\n  select(-g,-u) %&gt;% as_tibble()\n\nrm(temp)\nEl resultado de mirt nos da los datos del parámetro de discriminación \\(a\\), sin embargo, como puede observarse este es la constante igual a \\(1\\).\nCódigohead(mirt_par) %&gt;% \n  kable(align = rep(\"c\", 2),\n        caption=\"IRT a un parámetro con mirt\")\n\n\nIRT a un parámetro con mirt\n\nitem\na\nb\n\n\n\nX2001\n1\n0.9005876\n\n\nX2004\n1\n0.5167991\n\n\nX2005\n1\n0.0120417\n\n\nX2006\n1\n-0.7318071\n\n\nX2007\n1\n-1.5031479\n\n\nX2008\n1\n0.2336459",
+    "text": "El Modelo Lineal Clásico\nEl eje conceptual de esta teoría es sumamente intuitivo y se basa en un modelo lineal. La TCT postula que la puntuación observada o empírica que obtiene un individuo al resolver una prueba (representada como \\(X\\) u \\(O\\)) no es exacta, sino que está compuesta por dos partes: su puntuación verdadera (\\(V\\) o \\(T\\), que es la magnitud real del atributo que posee) y un error de medición aleatorio (\\(e\\)). Por lo tanto, la ecuación fundamental de la teoría es puntaje Observado = Puntaje Verdadero + Error:\n\\[ X = V + e\\] El objetivo central de la TCT es lograr aislar o estimar el grado de ese error para garantizar que las mediciones sean precisas. Dado que con una sola aplicación del test es imposible separar matemáticamente el puntaje verdadero del error, Spearman añadió tres supuestos fundamentales para hacer viable el modelo: - La puntuación verdadera es el promedio esperado (\\(V=E(X)\\)): si fuera posible aplicar el mismo test infinitas veces a la misma persona (suponiendo que no recuerda las respuestas anteriores ni se fatiga), los errores tenderían a cancelarse y el promedio de todas esas puntuaciones observadas sería su verdadera puntuación. - Independencia entre el nivel de habilidad y el error (\\(r(v,e)=0\\)): El tamaño del error de medición no tiene relación sistemática con la verdadera habilidad de la persona. Puede haber errores grandes o pequeños tanto en personas con puntuaciones verdaderas altas como bajas. - Independencia de los errores entre tests (\\(r(e_j, e_k)=0\\)): Los errores de medida cometidos en una prueba o en una ocasión no están relacionados con los errores cometidos en otra prueba distinta.\nCódigo\npacman::p_load(CTT, readxl)\n#\n# dirección de la carpeta en la que se encuentrán los datos\npath &lt;- \"contenido/datos/\"\n#\ndmt &lt;- openxlsx::read.xlsx(paste0(path,\"dmt.xlsx\"))\ndmt_key &lt;- openxlsx::read.xlsx(paste0(path,\"dmt_key.xlsx\"))\nResultados\nCódigo\ndmt_p &lt;- score(dmt[3:49],dmt_key$key,output.scored=TRUE,rel=TRUE)\n#\ndmt_p &lt;- data.frame(cbind(dmt[,1:2],ac=dmt_p$score,dmt_p$scored))\nGuardar los resultados en formato Excel, usando la librería openxlsx.\nCódigo\nopenxlsx::write.xlsx(dmt_p, paste0(path,\"dmt_p.xlsx\"))",
     "crumbs": [
-      "Teoría de respuesta al ítem",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
-    ]
-  },
-  {
-    "objectID": "contenido/IRT01_Rasch.html#rasch-con-la-librería-tam",
-    "href": "contenido/IRT01_Rasch.html#rasch-con-la-librería-tam",
-    "title": "2  Modelo de Rasch",
-    "section": "\n2.2 Rasch con la librería TAM",
-    "text": "2.2 Rasch con la librería TAM\n\nCódigolibrary(TAM)\n#\nmodelo &lt;- tam.mml(resp = dmt_p[4:50])\n\n\n\nCódigoprint(paste(\"EAP Reliability: \",round(modelo$EAP.rel,3)))\n\n[1] \"EAP Reliability:  0.88\"\n\n\nEl resultado de TAM (tam.mml()) se encuentra en el objeto modelo, por lo que usaremos el siguiente código para pasarlos a una tabla:\n\nCódigotam_par &lt;- modelo$xsi %&gt;%\n  as.data.frame() %&gt;%\n  rownames_to_column(var = \"Item\") %&gt;%\n  as_tibble()\n\nnames(tam_par) &lt;- c(\"item\",\"b\",\"se\")\n\nhead(tam_par) %&gt;% \n  kable(align = rep(\"c\", 3),\n        caption=\"IRT a un parámetro con TAM\")\n\n\nIRT a un parámetro con TAM\n\nitem\nb\nse\n\n\n\nX2001\n0.9020510\n0.0475171\n\n\nX2004\n0.5182521\n0.0455597\n\n\nX2005\n0.0134739\n0.0446136\n\n\nX2006\n-0.7304133\n0.0464759\n\n\nX2007\n-1.5017979\n0.0529298\n\n\nX2008\n0.2350880\n0.0448086\n\n\n\n\n\nGuardar los datos en excel\n\nCódigoopenxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), \"datos/dmt_rasch.xlsx\")",
-    "crumbs": [
-      "Teoría de respuesta al ítem",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
-    ]
-  },
-  {
-    "objectID": "contenido/IRT01_Rasch.html#rasch-con-jamovi",
-    "href": "contenido/IRT01_Rasch.html#rasch-con-jamovi",
-    "title": "2  Modelo de Rasch",
-    "section": "\n2.3 Rasch con Jamovi",
-    "text": "2.3 Rasch con Jamovi\n\n\n\n\nChalmers, Phil. 2011. mirt: Multidimensional Item Response Theory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nRobitzsch, Alexander, Thomas Kiefer, y Margaret Wu. 2013. TAM: Test Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, y Rebecca Freund. 2014. WrightMap: IRT Item-Person Map with ’ConQuest’ Integration. The R Foundation, 2014. https://doi.org/10.32614/cran.package.wrightmap.",
-    "crumbs": [
-      "Teoría de respuesta al ítem",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Modelo de Rasch</span>"
-    ]
-  },
-  {
-    "objectID": "apendice.html",
-    "href": "apendice.html",
-    "title": "Apéndice",
-    "section": "",
-    "text": "Preparando los datos\nLibrerías que se usarán:\nCódigopacman::p_load(dplyr, ShinyItemAnalysis)",
-    "crumbs": [
-      "Apéndice"
-    ]
-  },
-  {
-    "objectID": "apendice.html#preparadata",
-    "href": "apendice.html#preparadata",
-    "title": "Apéndice",
-    "section": "",
-    "text": "Datos para análisis de distractores\nSe usará un extracto de los datos de la prueba de admisión a la facultad de medicina (dataMedicaltest) de la librería ShinyItemAnalysis de Martinkova, Hladka, y Netik (2016). El cual contiene las respuestas de \\(2,392\\) evaluados en una prueba de \\(100\\) preguntas de opción múltiple.\n\nCódigodata(dataMedicaltest, dataMedicalkey)\n\n\nSe seleccionan solo los ítems cuya respuesta sea una sola opción de las \\(4\\) presentadas.\n\nCódigoclave_respuesta &lt;- dataMedicalkey %&gt;% \n  mutate(item=names(dataMedicaltest[,1:100]),\n         opciones=nchar(as.character(key))) %&gt;% \n  filter(opciones==1) \n\ndmt &lt;- dataMedicaltest[c(\"gender\",clave_respuesta$item)] %&gt;% \n  mutate(id=paste0(\"ID\",sprintf(\"%04d\",row_number()))) %&gt;%\n  select(id,gender,clave_respuesta$item) %&gt;%\n  rename(sexo=gender)\n\nclave_respuesta &lt;- clave_respuesta %&gt;% select(key)\n\n\nSi se supone que cada evaluado solo podía seleccionar una opción de respuesta, las respuestas con combinaciones \\(AB, AC, DBA, etc\\) no serían plausibles; por lo que se dejarán como \\(NA\\).\n\nCódigoaux &lt;- unique(c(\"BA\",\"AB\",\"BD\",\"CA\",\"DB\",\"CB\",\"BC\",\"DC\",\"AC\",\"DA\",\"BCA\",\"CD\",\"A,D\",\"ACD\",\n             \"ADC\",\"CAB\",\"CBA\",\"BAC\",\"ABDC\",\"ADCB\",\"ACDB\",\"ABC\",\"BDAC\",\"ADBC\",\n             \"DAC\",\"DAB\",\"BAD\",\"DCBA\",\"ABCD\",\"BDCA\",\"BACD\",\"ACB\",\"ADB\",\"BCAD\",\n             \"ADB\",\"BCAD\",\"BCDA\",\"CABD\",\"CAD\",\"CADB\",\"CBAD\",\"CBDA\",\"CDA\",\"DACB\",\n             \"DBC\",\"DCA\",\"DCAB\",\"DCB\",\"ABD\",\"DBA\",\"DBAC\",\"DBCA\",\"DCB\",\"CDAB\",\"CDBA\",\n             \"BADC\",\"BDA\",\"BDC\",\"CDB\",\"BCD\",\"CBD\",\"DABC\",\"ACBD\",\"AD\"))\n\ndmt &lt;- dmt %&gt;% \n  mutate(across(3:49,~ replace(as.character(.), . %in% aux, \"99\"))) %&gt;%\n  mutate_at(3:49, ~replace(., is.na(.), \"99\"))\n\n\nEl extracto de datos seleccionado consta de 2,392 renglones y 49 columnas.\n\nCódigoopenxlsx::write.xlsx(dmt, file=\"contenido/datos/dmt.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nopenxlsx::write.xlsx(clave_respuesta, file=\"contenido/datos/dmt_key.xlsx\",\n                     colNames = TRUE, rowNames = FALSE,\n                     firstRow =TRUE, halign = \"CENTER\")\n\nrm(dataMedicaltest,dataMedicalkey,clave_respuesta,dmt,aux)\n\n\n\n\n\n\nMartinkova, Patricia, Adela Hladka, y Jan Netik. 2016. ShinyItemAnalysis: Test and Item Analysis via Shiny. The R Foundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.",
-    "crumbs": [
-      "Apéndice"
-    ]
-  },
-  {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "Referencias",
-    "section": "",
-    "text": "Chalmers, Phil. 2011. Mirt: Multidimensional Item Response\nTheory. The R Foundation, 2011. https://doi.org/10.32614/cran.package.mirt.\n\n\nMartinkova, Patricia, Adela Hladka, and Jan Netik. 2016.\nShinyItemAnalysis: Test and Item Analysis via Shiny. The R\nFoundation, 2016. https://doi.org/10.32614/cran.package.shinyitemanalysis.\n\n\nRobitzsch, Alexander, Thomas Kiefer, and Margaret Wu. 2013. TAM:\nTest Analysis Modules. The R Foundation, 2013. https://doi.org/10.32614/cran.package.tam.\n\n\nTorres Irribarra, David, and Rebecca Freund. 2014. WrightMap: IRT\nItem-Person Map with ’ConQuest’ Integration. The R Foundation,\n2014. https://doi.org/10.32614/cran.package.wrightmap.\n\n\nWillse, John T. 2008. CTT: Classical Test Theory Functions. The\nR Foundation, 2008. https://doi.org/10.32614/cran.package.ctt.",
-    "crumbs": [
-      "Referencias"
+      "Teoría Clásica de los Test"
     ]
   }
 ]
