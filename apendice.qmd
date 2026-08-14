@@ -10,7 +10,7 @@ pacman::p_load(dplyr, ShinyItemAnalysis)
 
 ### Datos para análisis de distractores {#sec-dataMedical}
 
-Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$ evaluados en una prueba de $100$ preguntas de opción múltiple.
+Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$\$2,392\$ evaluados en una prueba de $100$ preguntas de opción múltiple.
 
 ```{r}
 data(dataMedicaltest, dataMedicalkey)

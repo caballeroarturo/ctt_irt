@@ -72,5 +72,3 @@ Guardar los datos en excel
 ```{r}
 openxlsx::write.xlsx(list(tam=tam_par,mirt=mirt_par), "datos/dmt_rasch.xlsx")
 ```
-
-## Rasch con Jamovi

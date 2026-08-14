@@ -55,7 +55,7 @@ format:
       dark: superhero
       light: cosmo
     lang: es
-    code-fold: true
+    code-fold: False
     code-link: true
     fig-cap-location: top
     tbl-cap-location: top
