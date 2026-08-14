@@ -8,7 +8,7 @@ pacman::p_load(dplyr, ShinyItemAnalysis)
 
 ## Datos para análisis de distractores {#sec-dataMedical}
 
-Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$\$2,392\$ evaluados en una prueba de $100$ preguntas de opción múltiple.
+Se usará un extracto de los datos de la prueba de admisión a la facultad de medicina (`dataMedicaltest`) de la librería `ShinyItemAnalysis` de @martinkova2016. El cual contiene las respuestas de $2,392$\$2,392\$\$2,392\$ evaluados en una prueba de $100$ preguntas de opción múltiple.
 
 ```{r}
 data(dataMedicaltest, dataMedicalkey)
@@ -77,3 +77,26 @@ openxlsx::write.xlsx(df, file="contenido/datos/hls1.xlsx",
                      colNames = TRUE, rowNames = FALSE,
                      firstRow =TRUE, halign = "CENTER")
 ```
+
+## Datos para DIF
+
+```{r}
+FIM <- read.csv("https://www.edmeasurementsurveys.com/TAM/Tutorials/data/FIMS_AUS_TestA.csv")
+dfr <- FIM[,2:15]
+
+key <- c(1, 3, 1, 4, 1, 3, 3, 1, 5, 1, 1, 4, 1, 1)
+df <- sapply( seq(1,length(key)), FUN = function(ii){ 1*(dfr[,ii] == key[ii]) } ) 
+puntaje <- rowSums(df[,1:13])
+
+df <- df %>% as.data.frame() %>% select(-V14)
+names(df) <- paste0("I",sprintf("%02d", 1:13))
+df$gender <- FIM[,1]
+df$id <- paste0("ID",sprintf("%04d", 1:nrow(df)))
+df$puntaje <- puntaje 
+df <- df %>% select(unique(c("id","gender","puntaje",names(df))))
+
+openxlsx::write.xlsx(df, file="contenido/datos/FIM.xlsx",
+                     colNames = TRUE, rowNames = FALSE,
+                     firstRow =TRUE, halign = "CENTER")
+```
+
